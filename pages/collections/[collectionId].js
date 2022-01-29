@@ -45,10 +45,8 @@ function Collection() {
   const nftModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(
-      provider.getSigner(),
-      'https://rinkeby.infura.io/v3/b28b5d2dec194976b90c78dbd42cf649' //Infura or Alchimy
-    )
+    const sdk = new ThirdwebSDK(provider.getSigner())
+    // 'https://rinkeby.infura.io/v3/b28b5d2dec194976b90c78dbd42cf649' //Infura or Alchimy
     return sdk.getNFTModule(collectionId)
   }, [provider])
 
