@@ -1,4 +1,8 @@
 import { useWeb3 } from '@3rdweb/hooks'
+import { useEffect } from 'react'
+
+import { client } from '../lib/sanityClient'
+
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 
@@ -11,6 +15,20 @@ const style = {
 
 export default function Home() {
   const { address, connectWallet } = useWeb3()
+
+  useEffect(() => {
+    if (!address) return
+    ;(async () => {
+      const userDoc = {
+        _type: 'users',
+        _id: address,
+        userName: 'Unnamed',
+        walletAddress: address,
+      }
+
+      const result = await client.createIfNotExists(userDoc)
+    })()
+  }, [address])
 
   return (
     <div className={style.wrapper}>
